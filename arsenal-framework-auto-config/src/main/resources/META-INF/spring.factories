@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.alo7.framework.config.spring.Alo7ConfigurationPostProcessor,\
+  com.alo7.framework.config.CmdLineConfigProvider

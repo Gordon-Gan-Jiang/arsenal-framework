@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.arsenal.framework-ng</groupId>
         <artifactId>arsenal-framework</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <groupId>com.arsenal.framework.common</groupId>
@@ -88,7 +88,17 @@
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-extension-annotations</artifactId>
-            
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.arsenal.framework.model</groupId>
+            <artifactId>arsenal-framework-model</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.arsenal.framework-ng</groupId>
     <artifactId>arsenal-framework</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>arsenal-framework</name>
     <description>arsenal-framework</description>
@@ -12,6 +12,7 @@
     <modules>
         <module>arsenal-framework-model</module>
         <module>arsenal-framework-common</module>
+        <module>arsenal-framework-auto-config</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -21,8 +22,6 @@
         <lombok.version>1.18.20</lombok.version>
         <nettyVersion>4.1.66.Final</nettyVersion>
     </properties>
-
-
 
     <dependencyManagement>
         <dependencies>
@@ -77,18 +76,6 @@
                 <version>${lombok.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.20</version>
-            </dependency>
-
-            <!-- Project Lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.20</version>
-            </dependency>
             <!-- Commons IO -->
             <dependency>
                 <groupId>commons-io</groupId>
