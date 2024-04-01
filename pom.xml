@@ -13,6 +13,7 @@
         <module>arsenal-framework-model</module>
         <module>arsenal-framework-common</module>
         <module>arsenal-framework-auto-config</module>
+        <module>arsenal-framework-rpc-client</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
