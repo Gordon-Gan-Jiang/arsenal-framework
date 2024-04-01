@@ -1,13 +1,13 @@
 package com.arsenal.framework.config.spring;
 
-import com.cicd.framework.Alo7Constant;
-import com.cicd.framework.config.ProfileType;
-import com.cicd.framework.config.annotations.CiCdConfiguration;
-import com.cicd.framework.config.annotations.EnvConfig;
-import com.cicd.framework.config.annotations.EnvConfigs;
-import com.cicd.framework.config.annotations.UseJsonFormat;
-import com.cicd.framework.utility.FieldUtils;
-import com.framework.utility.DesUtils;
+import com.arsenal.framework.config.annotations.ArsenalConfiguration;
+import com.arsenal.framework.config.annotations.EnvConfig;
+import com.arsenal.framework.config.annotations.EvnConfigs;
+import com.arsenal.framework.config.annotations.UseJsonFormat;
+import com.arsenal.framework.model.ArsenalConstant;
+import com.arsenal.framework.model.config.ProfileType;
+import com.arsenal.framework.model.utility.DesUtils;
+import com.arsenal.framework.model.utility.FieldUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
@@ -27,13 +27,14 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
+ * Arsenal configuration provider.
  * @author Gordon.Gan
  */
 public class ArsenalConfigurationProvider<T extends Object> {
     private static String VALUE_METHOD_NAME = "value";
     private static Method VALUE_METHOD;
     private static Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\$\\{([^}]*)");
-    private static String PLACEHOLDERS_PREFIX = "com.cicd.config.placeholders.";
+    private static String PLACEHOLDERS_PREFIX = "com.arsenal.config.placeholders.";
 
     static {
         try {
@@ -146,8 +147,8 @@ public class ArsenalConfigurationProvider<T extends Object> {
                 Collectors.toList());
         if (annotations.isEmpty()) {
             annotations = Arrays.stream(property.getAnnotations()).filter(
-                    it -> it instanceof EnvConfigs).flatMap(envConfigs -> Arrays
-                    .stream(((EnvConfigs) envConfigs).value())).collect(Collectors.toList());
+                    it -> it instanceof EvnConfigs).flatMap(envConfigs -> Arrays
+                    .stream(((EvnConfigs) envConfigs).value())).collect(Collectors.toList());
         }
 
         // Find by profile
@@ -177,12 +178,14 @@ public class ArsenalConfigurationProvider<T extends Object> {
         try {
             value = (String) VALUE_METHOD.invoke(annotation);
             if (annotation.encryptedV2()) {
-                String desKey = environment.getProperty(Alo7Constant.DES_KEY_PROPERTY);
+                String desKey = environment.getProperty(ArsenalConstant.DES_KEY_PROPERTY);
                 value = DesUtils.decrypt2(value, desKey);
             }
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e.getMessage());
         } catch (InvocationTargetException e) {
+            throw new RuntimeException(e.getMessage());
+        } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
 
@@ -190,7 +193,7 @@ public class ArsenalConfigurationProvider<T extends Object> {
     }
 
     private void extractValuesFromProperties(Map<String, Object> propertyOverrideMap) {
-        Annotation annotation = clazz.getDeclaredAnnotation(CiCdConfiguration.class);
+        Annotation annotation = clazz.getDeclaredAnnotation(ArsenalConfiguration.class);
         if (annotation == null) {
             return;
         }

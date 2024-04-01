@@ -8,7 +8,7 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 /**
  * @author Gordon.Gan
  */
-@ManagedResource("CiCd:name=CmdLineConfig")
+@ManagedResource("Arsenal:name=CmdLineConfig")
 public class CmdLineConfigImpl extends CmdLineConfig{
 
     @ManagedAttribute

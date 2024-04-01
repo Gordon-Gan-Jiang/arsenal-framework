@@ -1,6 +1,7 @@
 package com.arsenal.framework.config;
 
-import com.cicd.framework.Alo7Constant;
+import com.arsenal.framework.model.ArsenalConstant;
+import com.arsenal.framework.model.config.ProfileType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class CmdLineConfigProvider {
 
     @Value("${server.port}")
-    private int port = Alo7Constant.DEFAULT_PORT;
+    private int port = ArsenalConstant.DEFAULT_PORT;
 
     @Value("${com.server-name}")
     private String serverName = "unspecified";

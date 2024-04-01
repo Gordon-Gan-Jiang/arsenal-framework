@@ -1,5 +1,6 @@
 package com.arsenal.framework.config;
 
+import com.arsenal.framework.model.config.ProfileType;
 import lombok.Getter;
 import lombok.Setter;
 

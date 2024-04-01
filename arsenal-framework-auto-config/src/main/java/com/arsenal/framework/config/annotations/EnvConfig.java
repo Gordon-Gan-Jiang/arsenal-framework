@@ -14,8 +14,8 @@ import java.lang.annotation.RetentionPolicy;
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Repeatable(value = ArsenalConfigs.class)
-public @interface ArsenalConfig {
+@Repeatable(value = EvnConfigs.class)
+public @interface EnvConfig {
     ProfileType[] env();
 
     String region() default "";

@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.PARAMETER})
-public @interface ArsenalConfigs {
-    ArsenalConfig[] value();
+public @interface EvnConfigs {
+    EnvConfig[] value();
 }

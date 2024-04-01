@@ -72,8 +72,6 @@ public class NetworkUtils {
         return 0;
     }
 
-}
-
     /**
      * Extension function to parse socket address from a string.
      *

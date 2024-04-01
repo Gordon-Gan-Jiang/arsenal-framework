@@ -261,6 +261,12 @@
             <name>Aliyun Maven Repository</name>
             <url>https://maven.aliyun.com/repository/public</url>
         </repository>
+
+        <repository>
+            <id>wpsrepo-fantasy</id>
+            <name>fantasy</name>
+            <url>https://mirrors.wps.cn/maven/repository/fantasy/</url>
+        </repository>
     </repositories>
 
     <build>
@@ -273,9 +279,39 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
+                    <skip>true</skip>
                 </configuration>
+            </plugin>
+            <!--配置生成Javadoc包-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <charset>UTF-8</charset>
+                    <docencoding>UTF-8</docencoding>
+                    <additionalJOptions>
+                        <additionalJOption>-Xdoclint:none</additionalJOption>
+                    </additionalJOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>wpsrepo-fantasy</id>
+            <url>https://mirrors.wps.cn/maven/repository/fantasy/</url>
+        </repository>
+    </distributionManagement>
 
 </project>

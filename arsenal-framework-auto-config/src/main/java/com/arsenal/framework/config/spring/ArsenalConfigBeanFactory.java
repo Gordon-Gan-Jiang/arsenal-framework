@@ -1,5 +1,6 @@
 package com.arsenal.framework.config.spring;
 
+import com.arsenal.framework.config.CmdLineConfigImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.ApplicationContext;
@@ -10,6 +11,10 @@ import org.springframework.context.ApplicationContextAware;
  */
 public class ArsenalConfigBeanFactory<T extends Object> implements FactoryBean<T>, ApplicationContextAware {
     private Class<T> clazz;
+
+    public ArsenalConfigBeanFactory(Class<T> clazz) {
+        this.clazz = clazz;
+    }
 
     private ApplicationContext context;
 

@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: test
+server:
+  port: 8000
+
+com:
+  server-name: schedule-server
+  region: 10.226.33.34

@@ -1,12 +1,11 @@
 package com.arsenal.framework.config.spring;
 
-import com.cicd.framework.config.annotations.CiCdConfiguration;
-import com.cicd.framework.config.annotations.CiCdConfigurationDelegate;
-import com.framework.utility.ObjectHelper;
+import com.arsenal.framework.config.annotations.ArsenalConfiguration;
+import com.arsenal.framework.config.annotations.ArsenalConfigurationDelegate;
+import com.arsenal.framework.model.utility.ObjectHelper;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
@@ -27,6 +26,8 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 /**
+ * [BeanDefinitionRegistryPostProcessor] to create [ArsenalConfiguration] and
+ * [ArsenalConfigurationDelegate] objects.
  * @author Gordon.Gan
  */
 @Slf4j
@@ -37,7 +38,7 @@ public class ArsenalConfigurationPostProcessor implements BeanDefinitionRegistry
         final List<String> configurationBeans = new ArrayList<>();
         final Map<String, String> configurationPrefixMap = new HashMap();
         final Map<Class<?>, String> originalConfigurations = new HashMap();
-        final Map<Class<?>, Map<String, CiCdConfigurationDelegate>> delegateConfigurations = new HashMap();
+        final Map<Class<?>, Map<String, ArsenalConfigurationDelegate>> delegateConfigurations = new HashMap();
 
         // Process original configurations.
         for (String beanName : registry.getBeanDefinitionNames()) {
@@ -45,16 +46,16 @@ public class ArsenalConfigurationPostProcessor implements BeanDefinitionRegistry
             if (beanDefinition instanceof AnnotatedBeanDefinition) {
                 AnnotatedBeanDefinition annotatedBeanDefinition = (AnnotatedBeanDefinition) beanDefinition;
                 final String className = findClassName(annotatedBeanDefinition);
-                final Class<?> clazz = ClassUtils.getClass(className);
+                final Class<?> clazz = ObjectHelper.classNameToClass(className);
                 if (clazz == null) {
                     continue;
                 }
-                final CiCdConfiguration annotation = clazz.getAnnotation(CiCdConfiguration.class);
+                final ArsenalConfiguration annotation = clazz.getAnnotation(ArsenalConfiguration.class);
                 if (annotation != null) {
                     // Check configuration prefix: not use the same prefix.
                     final String prefix = annotation.prefix().toLowerCase();
                     if (configurationPrefixMap.containsKey(prefix)) {
-                        throw new RuntimeException("Two Alo7Configuration beans use the same prefix" + prefix + ": "
+                        throw new RuntimeException("Two ArsenalConfiguration beans use the same prefix" + prefix + ": "
                                 + configurationPrefixMap.get(prefix) + ", " + className);
                     } else {
                         configurationPrefixMap.put(prefix, className);
@@ -86,7 +87,7 @@ public class ArsenalConfigurationPostProcessor implements BeanDefinitionRegistry
                 if (clazz == null) {
                     continue;
                 }
-                final CiCdConfigurationDelegate annotation = clazz.getAnnotation(CiCdConfigurationDelegate.class);
+                final ArsenalConfigurationDelegate annotation = clazz.getAnnotation(ArsenalConfigurationDelegate.class);
                 if (annotation == null) {
                     continue;
                 }
@@ -106,11 +107,11 @@ public class ArsenalConfigurationPostProcessor implements BeanDefinitionRegistry
                     registry.removeBeanDefinition(originalConfigurationName);
                 }
                 // Check multiple delegate orders.
-                final Map<String, CiCdConfigurationDelegate> oldDelegate = delegateConfigurations.get(
+                final Map<String, ArsenalConfigurationDelegate> oldDelegate = delegateConfigurations.get(
                         annotation.value());
                 // todo use Pair instead o Map
                 if (MapUtils.isNotEmpty(oldDelegate)) {
-                    final Entry<String, CiCdConfigurationDelegate> entry =
+                    final Entry<String, ArsenalConfigurationDelegate> entry =
                             oldDelegate.entrySet().stream().findFirst().get();
                     if (entry.getValue().order() > annotation.order()) {
                         continue;
@@ -129,7 +130,7 @@ public class ArsenalConfigurationPostProcessor implements BeanDefinitionRegistry
                 configurationBeans.add(className);
             }
         }
-        log.info("found @CiCdConfiguration beans: {}", configurationBeans.stream().collect(Collectors.joining(", ")));
+        log.info("found @ArsenalConfiguration beans: {}", configurationBeans.stream().collect(Collectors.joining(", ")));
     }
 
     @Override
