@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.alo7.framework.rpc.base.client.spring.Alo7RpcClientPostProcessor,\
+  com.alo7.framework.rpc.base.client.spring.ServiceClientFusibleCheckerConfigure,\
+  com.alo7.framework.rpc.base.client.spring.testing.FakeServiceClientFusibleChecker
+
