@@ -2,7 +2,7 @@
 
 package com.arsenal.framework.model.json;
 
-import com.arsenal.framework.model.utility.JodaTimeUtils;
+import com.arsenal.framework.model.utility.JodaUtils;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
@@ -34,6 +34,6 @@ public class CstDateTimeDeserializer extends StdDeserializer<DateTime> {
 
    private DateTime toCst(String dateStr)  {
 
-        return DateTime.parse(dateStr).withZone(JodaTimeUtils.CST_TIMEZONE);
+        return DateTime.parse(dateStr).withZone(JodaUtils.CST_TIMEZONE);
     }
 }

@@ -13,7 +13,7 @@ import java.time.ZoneId;
 /**
  * @author Gordon.Gan
  */
-public class JodaTimeUtils {
+public class JodaUtils {
 
     public static final long HOURS_PER_DAY = 24;
 

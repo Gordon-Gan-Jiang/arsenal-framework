@@ -2,7 +2,7 @@
 
 package com.arsenal.framework.model.json;
 
-import com.arsenal.framework.model.utility.JodaTimeUtils;
+import com.arsenal.framework.model.utility.JodaUtils;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -29,6 +29,6 @@ public class CstDateTimeSerializer extends StdSerializer<DateTime> {
 
     private String toCstString()  {
          DateTime dateTime = new DateTime();
-        return dateTime.withZone(JodaTimeUtils.CST_TIMEZONE).toString(JodaTimeUtils.DEFAULT_UTC_DATE_TIME_FORMAT_OFFSET);
+        return dateTime.withZone(JodaUtils.CST_TIMEZONE).toString(JodaUtils.DEFAULT_UTC_DATE_TIME_FORMAT_OFFSET);
     }
 }

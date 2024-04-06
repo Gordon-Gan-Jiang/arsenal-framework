@@ -9,11 +9,13 @@ import org.glassfish.jersey.uri.UriComponent.Type;
 public class JerseyUtils {
 
     public static String encodeAsQueryParam(String url) {
-       return UriComponent.encode(url, Type.QUERY_PARAM);
+        return UriComponent.encode(url, Type.QUERY_PARAM);
     }
+
     public static String encodeAsQuery(String url) {
         return UriComponent.encode(url, Type.QUERY);
     }
+
     public static String encodeAsPath(String url) {
         return UriComponent.encode(url, Type.PATH);
     }
