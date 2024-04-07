@@ -16,7 +16,7 @@ public class ArsenalJerseyUriBuilder {
 
     public ArsenalJerseyUriBuilder(URI uri) {
         this.uri = uri;
-        final UriBuilder uriBuilder = JerseyUriBuilder.fromUri(uri);
+        this.builder = JerseyUriBuilder.fromUri(uri);
     }
 
     public ArsenalJerseyUriBuilder uri(String p) {

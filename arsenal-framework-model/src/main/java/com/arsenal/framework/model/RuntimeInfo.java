@@ -2,6 +2,7 @@ package com.arsenal.framework.model;
 
 import com.arsenal.framework.model.config.ProfileType;
 import com.arsenal.framework.model.utility.NetworkUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Gordon.Gan
@@ -46,5 +47,13 @@ public class RuntimeInfo {
 
     public static String instanceInfo() {
         return hostname + "/" + profile.name() + "/" + hostIp;
+    }
+
+    public static String fullServiceNameAndVersion() {
+       return StringUtils.isEmpty(version) ?fullServiceName():fullServiceName().concat("/").concat(version);
+    }
+
+    public static String fullServiceName() {
+        return "".concat(group).concat(serverName).concat(profile.name().toLowerCase());
     }
 }
