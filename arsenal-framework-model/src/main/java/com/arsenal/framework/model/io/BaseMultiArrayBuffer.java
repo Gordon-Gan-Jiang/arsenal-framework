@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Getter
 public class BaseMultiArrayBuffer<T> implements AutoCloseable {
-    private AbstractThreadLocalArrayAllocator<T> allocator;
+    protected AbstractThreadLocalArrayAllocator<T> allocator;
 
     public BaseMultiArrayBuffer(AbstractThreadLocalArrayAllocator<T> allocator) {
         this.allocator = allocator;
@@ -27,7 +27,7 @@ public class BaseMultiArrayBuffer<T> implements AutoCloseable {
     protected volatile Integer length = 0;
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         allocator.release(buffers);
         buffers.clear();
         position = 0;

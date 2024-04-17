@@ -9,6 +9,7 @@ import com.arsenal.framework.model.StartupArgs;
 import com.arsenal.framework.model.io.MultiNettyByteBufBuffer;
 import com.arsenal.framework.model.json.JsonConverter;
 import com.arsenal.framework.model.utility.JodaUtils;
+import com.arsenal.framework.model.utility.StringUtils;
 import com.arsenal.framework.rpc.ahc.entity.MultiNettyByteBufBody;
 import com.arsenal.framework.rpc.base.client.ServiceClientSetting;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -79,7 +80,7 @@ public class AhcUtils {
             return null;
         } else if (obj instanceof String) {
             String str = (String) obj;
-            MultiNettyByteBufBody body = new MultiNettyByteBufBody(str.utf8EncodeToMultiNettyByteBuf(true));
+            MultiNettyByteBufBody body = new MultiNettyByteBufBody(StringUtils.utf8EncodeToMultiNettyByteBuf(str,true));
             builder.setBody(new BodyGenerator() {
                 @Override
                 public Body createBody() {
