@@ -1,6 +1,7 @@
 package com.arsenal.framework.model.utility;
 
 import com.arsenal.framework.model.io.MultiByteArrayBuffer;
+import com.arsenal.framework.model.io.MultiByteBuffer;
 import com.arsenal.framework.model.io.MultiNettyByteBufBuffer;
 
 import java.io.OutputStream;

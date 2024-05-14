@@ -1,7 +1,5 @@
 package com.arsenal.framework.model.locks;
 
-import sun.misc.Unsafe;
-
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 

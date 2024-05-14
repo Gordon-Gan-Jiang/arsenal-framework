@@ -1,15 +1,19 @@
 package com.arsenal.framework.model.io;
 
+import com.arsenal.framework.model.io.pool.ByteBufferAllocator;
+import com.arsenal.framework.model.utility.IoHelper;
+
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MultiByteBuffer extends BaseMultiArrayBuffer<ByteBuffer> {
     private final boolean direct;
 
     public MultiByteBuffer(boolean threadSafe, boolean direct) {
-        super(threadSafe ? (direct ? ByteBufferAllocator.currentDirectSync : ByteBufferAllocator.currentHeapSync) :
-                (direct ? ByteBufferAllocator.currentDirectSimple : ByteBufferAllocator.currentHeapSimple));
+        super(threadSafe ? (direct ? ByteBufferAllocator.getCurrentDirectSync() : ByteBufferAllocator.getCurrentHeapSync()) :
+                (direct ? ByteBufferAllocator.getCurrentDirectSimple() : ByteBufferAllocator.getCurrentHeapSimple()));
         this.direct = direct;
     }
 
@@ -65,7 +69,7 @@ public class MultiByteBuffer extends BaseMultiArrayBuffer<ByteBuffer> {
     public List<ByteBuffer> getReadBuffers() {
         List<ByteBuffer> readBuffers = new ArrayList<>();
         for (ByteBuffer buffer : buffers) {
-            readBuffers.add(buffer.duplicate().flip());
+            readBuffers.add((ByteBuffer) buffer.duplicate().flip());
         }
         return readBuffers;
     }
