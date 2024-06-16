@@ -1,16 +1,27 @@
 package com.arsenal.framework.rpc.apache;
 
+import com.arsenal.framework.model.ArsenalConstant;
 import com.arsenal.framework.rpc.ArsenalJerseyUriBuilder;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpHead;
+import org.apache.hc.client5.http.classic.methods.HttpOptions;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.classic.methods.HttpTrace;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpResponse;
+import org.apache.hc.core5.http.Message;
+import org.apache.hc.core5.http.nio.AsyncEntityProducer;
 
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.CompletableFuture;
 
 public class HttpRequest {
@@ -67,7 +78,7 @@ public class HttpRequest {
     }
 
     public CloseableHttpResponse performJsonPost(Object obj) throws IOException {
-        return performPost(obj, Alo7Constant.APPLICATION_JSON_UTF8);
+        return performPost(obj, ArsenalConstant.APPLICATION_JSON_UTF8);
     }
 
     public CloseableHttpResponse performPut(Object obj, ContentType contentType) throws IOException {
@@ -75,7 +86,7 @@ public class HttpRequest {
     }
 
     public CloseableHttpResponse performJsonPut(Object obj) throws IOException {
-        return performPut(obj, Alo7Constant.APPLICATION_JSON_UTF8);
+        return performPut(obj, ArsenalConstant.APPLICATION_JSON_UTF8);
     }
 
     public CloseableHttpResponse performPatch(Object obj, ContentType contentType) throws IOException {
@@ -83,7 +94,7 @@ public class HttpRequest {
     }
 
     public CloseableHttpResponse performJsonPatch(Object obj) throws IOException {
-        return performPatch(obj, Alo7Constant.APPLICATION_JSON_UTF8);
+        return performPatch(obj, ArsenalConstant.APPLICATION_JSON_UTF8);
     }
 
     public CloseableHttpResponse performDelete() throws IOException {
@@ -199,11 +210,11 @@ public class HttpRequest {
             }
         }
 
-        if (!headerMap.containsKey(Alo7Constant.X_REQUEST_ID_HEADER) &&
-                !headerMap.containsKey(Alo7Constant.X_ALO7_REQUEST_ID_HEADER)) {
+        if (!headerMap.containsKey(ArsenalConstant.X_REQUEST_ID_HEADER) &&
+                !headerMap.containsKey(ArsenalConstant.X_ALO7_REQUEST_ID_HEADER)) {
             String requestId = RpcRequestInfoUtils.getRequestId();
-            request.setHeader(Alo7Constant.X_REQUEST_ID_HEADER, requestId);
-            request.setHeader(Alo7Constant.X_ALO7_REQUEST_ID_HEADER, requestId);
+            request.setHeader(ArsenalConstant.X_REQUEST_ID_HEADER, requestId);
+            request.setHeader(ArsenalConstant.X_ALO7_REQUEST_ID_HEADER, requestId);
         }
     }
 
