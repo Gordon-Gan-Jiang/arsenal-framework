@@ -1,4 +1,6 @@
 package com.arsenal.framework.model.io;
+import com.arsenal.framework.model.io.pool.CharArrayAllocator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +14,9 @@ public class MultiCharArrayBuffer extends BaseMultiArrayBuffer<char[]> {
     private int length;
     private char[] currentBuffer;
     private List<char[]> buffers;
-    private CharArrayAllocator allocator;
 
     public MultiCharArrayBuffer(boolean threadSafe) {
-        super(threadSafe ? CharArrayAllocator.currentSync() : CharArrayAllocator.currentSimple());
+        super(threadSafe ? CharArrayAllocator.getCurrentSync() : CharArrayAllocator.getCurrentSimple());
         this.threadSafe = threadSafe;
         this.position = 0;
         this.length = 0;
@@ -51,8 +52,8 @@ public class MultiCharArrayBuffer extends BaseMultiArrayBuffer<char[]> {
         if (readPosition >= length) {
             return -1;
         }
-        int bufferIndex = readPosition / allocator.bufferSize();
-        int pos = readPosition - bufferIndex * allocator.bufferSize();
+        int bufferIndex = readPosition / allocator.getBufferSize();
+        int pos = readPosition - bufferIndex * allocator.getBufferSize();
         return buffers.get(bufferIndex)[pos];
     }
 
@@ -66,10 +67,10 @@ public class MultiCharArrayBuffer extends BaseMultiArrayBuffer<char[]> {
         int totalCount = 0;
         int writePos = off;
         while (start < end) {
-            int bufferIndex = start / allocator.bufferSize();
-            int pos = start - bufferIndex * allocator.bufferSize();
+            int bufferIndex = start / allocator.getBufferSize();
+            int pos = start - bufferIndex * allocator.getBufferSize();
 
-            int countToRead = Math.min(end - start, allocator.bufferSize() - pos);
+            int countToRead = Math.min(end - start, allocator.getBufferSize() - pos);
             System.arraycopy(buffers.get(bufferIndex), pos, b, writePos, countToRead);
             start += countToRead;
             totalCount += countToRead;
@@ -84,7 +85,7 @@ public class MultiCharArrayBuffer extends BaseMultiArrayBuffer<char[]> {
         return chars;
     }
 
-    private char[] newBuffer() {
+    public char[] newBuffer() {
         char[] buffer = allocator.allocate();
         buffers.add(buffer);
         position = 0;
