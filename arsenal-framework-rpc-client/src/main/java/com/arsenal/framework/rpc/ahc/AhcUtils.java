@@ -56,12 +56,7 @@ public class AhcUtils {
         }
 
         if (obj instanceof Body) {
-            builder.setBody(new BodyGenerator() {
-                @Override
-                public Body createBody() {
-                    return (Body) obj;
-                }
-            });
+            builder.setBody(() -> (Body) obj);
             if (contentType != null) {
                 builder.setHeader(HttpHeaders.CONTENT_TYPE, contentType);
             }
@@ -81,24 +76,14 @@ public class AhcUtils {
         } else if (obj instanceof String) {
             String str = (String) obj;
             MultiNettyByteBufBody body = new MultiNettyByteBufBody(StringUtils.utf8EncodeToMultiNettyByteBuf(str,true));
-            builder.setBody(new BodyGenerator() {
-                @Override
-                public Body createBody() {
-                    return body;
-                }
-            });
-            setHeader(HttpHeaders.CONTENT_TYPE, contentType != null ? contentType : Alo7Constant.TEXT_PLAIN_UTF8);
+            builder.setBody(() -> body);
+            builder.setHeader(HttpHeaders.CONTENT_TYPE, contentType != null ? contentType : ArsenalConstant.TEXT_PLAIN_UTF8);
             return body;
         } else {
             MultiNettyByteBufBuffer buffer = new MultiNettyByteBufBuffer(true);
             JsonConverter.serializeTo(obj, buffer.asOutputStream());
             MultiNettyByteBufBody body = new MultiNettyByteBufBody(buffer);
-            builder.setBody(new BodyGenerator() {
-                @Override
-                public Body createBody() {
-                    return body;
-                }
-            });
+            builder.setBody(() -> body);
             builder.setHeader(HttpHeaders.CONTENT_TYPE, contentType != null ? contentType : ArsenalConstant.APPLICATION_JSON_UTF8);
             return body;
         }

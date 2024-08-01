@@ -120,6 +120,7 @@
                 <version>1.8</version>
             </dependency>
             <!-- Guava -->
+            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -309,10 +310,6 @@
     </build>
 
     <distributionManagement>
-        <repository>
-            <id>wpsrepo-fantasy</id>
-            <url>https://mirrors.wps.cn/maven/repository/fantasy/</url>
-        </repository>
         <repository>
             <id>central</id>
             <name>aliyun maven</name>

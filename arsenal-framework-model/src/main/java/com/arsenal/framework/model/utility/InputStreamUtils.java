@@ -1,5 +1,6 @@
 package com.arsenal.framework.model.utility;
 
+import com.arsenal.framework.model.io.MultiCharArrayBuffer;
 import com.google.common.base.Preconditions;
 import org.apache.commons.io.IOUtils;
 import sun.nio.cs.ArrayDecoder;
